@@ -16,7 +16,7 @@ The client A and server B must perform the given actions in order as specified b
 import java.math.BigInteger;
 import java.util.Scanner;
 
-    public class DHKeyExchange {
+    public class RogersP2 {
         public static void main(String args[]) {
 
             Scanner stdin = new Scanner(System.in);

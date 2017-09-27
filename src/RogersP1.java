@@ -21,12 +21,16 @@ with the same key K above and with the IV for HMAC SHA 256 taken to be the
 HMAC result in hex.
  */
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.HexBinaryDV;
+
 import java.security.*;
 import javax.crypto.*;
 import javax.crypto.spec.*;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.security.spec.*;
 import java.io.*;
 import java.util.*;
+
 
 public class RogersP1 {
 
@@ -60,7 +64,9 @@ public class RogersP1 {
 		System.out.println("Hex value for key :  " + Integer.toString(H));
 		System.out.println("Plaintext string  :  " + T);		
 		System.out.println("Encrypted string  :  " + encStr);
-		
+
+		//HMAC SHA256 authentication of 'S' with the key 'K'
+		System.out.println("HMAC result in Hex : " + (HMAC(K,S)));
 	}
 	
 	public static byte[] encryptAES(byte key[], byte data[], byte counter[]) throws Exception
@@ -81,6 +87,23 @@ public class RogersP1 {
            
            return encryptedData;
     }
+	public static byte[] HMAC(byte[] K, byte[] encStr) {
+		try {
+			Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
+			SecretKeySpec skeySpec = new SecretKeySpec(K, "HmacSHA256");
+			sha256_HMAC.init(skeySpec);
+
+			return sha256_HMAC.doFinal(encStr);
+
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 }
 
 
