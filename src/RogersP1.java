@@ -87,13 +87,13 @@ public class RogersP1 {
            
            return encryptedData;
     }
-	public static byte[] HMAC(byte[] K, byte[] encStr) {
+	public static byte[] HMAC(byte[] key, byte[] hexValue) {
 		try {
 			Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-			SecretKeySpec skeySpec = new SecretKeySpec(K, "HmacSHA256");
+			SecretKeySpec skeySpec = new SecretKeySpec(key, "HmacSHA256");
 			sha256_HMAC.init(skeySpec);
 
-			return sha256_HMAC.doFinal(encStr);
+			return sha256_HMAC.doFinal(hexValue);
 
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
